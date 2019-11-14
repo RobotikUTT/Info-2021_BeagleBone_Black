@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+	Deprecated
+-->
+<messages>
+	<!-- Data received from STM -->
+	<bind frame="order_completed" msg="StmDone" />
+	<bind frame="stm_coder_data" msg="WheelsDistance" />
+	<bind frame="current_pos" msg="DirectedPose" />
+	<bind frame="current_pwm" msg="Pwms" />
+	<bind frame="current_speed" msg="WheelsSpeed" />
+	<bind frame="robot_blocked" msg="RobotBlocked" />
+
+	<!-- Orders sent to STM -->
+	<bind frame="set_stm_mode" msg="StmMode" />
+	<bind frame="set_speed" msg="Speed" />
+	<bind frame="go_to_angle" msg="DirectedPose" />
+	<bind frame="go_to" msg="DirectedPose" />
+	<bind frame="rotate" msg="DirectedPose" />
+	<bind frame="set_left_pid" msg="Pid" />
+	<bind frame="set_right_pid" msg="Pid" />
+	<bind frame="set_both_pid" msg="Pid" />
+	<bind frame="set_pwm" msg="Pwms" />
+	<bind frame="set_position" msg="DirectedPose" />
+	<bind frame="set_stm_param" msg="StmParams" />
+
+	<!-- Arduino messages -->
+	<bind frame="sonar_distance" msg="SonarDistance" />
+</messages>
+		

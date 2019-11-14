@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>xml_class_parser</name>
+  <version>0.0.0</version>
+  <description>Package providing tools for parsing XML in class objects</description>
+
+  <maintainer email="cle.bourdonnaye@gmail.com">Clément de La Bourdonnaye</maintainer>
+  <license>TODO</license>
+  <maintainer email="cle.bourdonnaye@gmail.com">Clément de La Bourdonnaye</maintainer>
+
+  <!-- Dependencies -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>rospy</depend>
+
+  <!-- Tests -->
+  <test_depend>rostest</test_depend>
+  
+  <export></export>
+</package>

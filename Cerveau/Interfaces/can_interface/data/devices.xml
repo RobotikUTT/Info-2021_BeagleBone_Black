@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<devices>
+	<broadcast id="0" name="all" />
+
+	<!-- Beagle bone black -->
+	<device id="1" name="bbb" />
+
+	<!-- STM : manage wheels and stuff -->
+	<device id="2" name="stm" />
+
+	<!-- Arduino-->
+	<device id="3" name="arduino" />
+</devices>
+	

@@ -1,0 +1,6 @@
+<launch>
+  <test test-name="test_behavior" pkg="xml_class_parser" type="test_behavior.py" />
+  <test test-name="test_errors" pkg="xml_class_parser" type="test_errors.py" />
+  <test test-name="test_helpers" pkg="xml_class_parser" type="test_helpers.py" />
+  <test test-name="test_binding" pkg="xml_class_parser" type="test_binding.py" />
+</launch>
