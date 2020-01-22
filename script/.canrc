@@ -1,0 +1,5 @@
+#!/bin/bash
+# à mettre dans le répertoire home
+
+[default]
+interface=socketcan_ctypes
