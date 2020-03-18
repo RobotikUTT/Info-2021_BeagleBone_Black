@@ -1,0 +1,30 @@
+{
+	"frames": [
+		{
+			"name": "ping",
+			"description": "Ping all devices",
+			"cmd_id": 0,
+			"source": "bbb",
+			"destination": "all",
+			"fields": []
+		},
+		{
+			"name": "pong",
+			"description": "Pong !",
+			"cmd_id": 1,
+			"source": "all",
+			"destination": "bbb",
+			"fields": [
+				{
+					"name": "device",
+					"_type": "byte"
+				},
+				{
+					"name": "status",
+					"_type": "byte",
+					"enum": {"alive":0, "some_issues":1}
+				}
+			]
+		}
+	]
+}

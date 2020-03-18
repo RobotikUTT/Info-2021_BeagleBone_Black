@@ -5,9 +5,10 @@ import json
 
 """ script de test des librairies can et cantools pour l'écriture, l'envoi et la lecture de données sur le bus can
 essayer ici de tester les messages et frames du dossier data (fichiers json) """
-""" Le point de blocage actuel est la traduction des données json vers les datas de frames can que l'on doit envoyer 
+""" Le point de blocage actuel est la traduction des données json vers les datas de frames can que l'on doit envoyer
 au microcontroleur pour l'asservissement est déjà programmé donc il faut qu'il reçoive des trames qu'il puisse interprété """
 """ Il faut trouver à partir du code 2018 comment sont converties les données xml vers les trames can et faire de même """
+
 
 def main():
     tx_bus = can.interface.Bus()

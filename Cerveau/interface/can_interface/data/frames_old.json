@@ -6,7 +6,8 @@
 			"cmd_id": 0,
 			"source": "bbb",
 			"destination": "all",
-			"fields": []
+			"fields_type": [],
+			"fields": {}
 		},
 		{
 			"name": "pong",
@@ -14,17 +15,11 @@
 			"cmd_id": 1,
 			"source": "all",
 			"destination": "bbb",
-			"fields": [
-				{
-					"name": "device",
-					"_type": "byte"
-				},
-				{
-					"name": "status",
-					"_type": "byte",
-					"enum": {"alive":0, "some_issues":1}
-				}
-			]
+			"fields_type": ["byte", "byte"],
+			"fields": {
+				"device": {},
+				"status": {"alive":0, "some_issues":1}
+			}
 		},
 		{
 			"name": "set_speed",
