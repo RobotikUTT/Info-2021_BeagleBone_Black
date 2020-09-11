@@ -1,3 +1,3 @@
-[submodule "Cerveau/interface/interface_description"]
-	path = Cerveau/interface/interface_description
+[submodule "Cerveau/interfaces/interface_description"]
+	path = Cerveau/interfaces/interface_description
 	url = https://github.com/RobotikUTT/Info-2020_Interface.git

@@ -1,29 +1,41 @@
 #!/usr/bin/python3
 
 from Cerveau.interface.interface_description.python_parser import devicesList, messagesList, framesList
+#      VVV -> python-can library
 import can
+can.rc['interface'] = 'socketcan_ctypes'
 
 
 def retrieve_by_name(_list, _name):
 	for _item in _list:
-		# La puissance du Python BOOM! Est-ce que _item a bien un membre 'name' ? On sait pas et on s'en fout !
+		# La puissance du Python BOOM! Est-ce que _item a bien un attribut 'name' ? On sait pas et on s'en fout !
 		if _item.name == _name:
 			return _item
 
 
 def main():
-	interface = input('interface [can0] : ')
+	interface = input('interface [default=can0] : ')
 	if interface == '':
 		interface = 'can0'
 
 	can.rc['interface'] = 'socketcan_ctypes'
-	bus = can.Bus(interface)
+	try:
+		bus = can.Bus(interface)
+	except OSError as e:
+		print('Interface "{}": OSError:'.format(interface), e)
+		exit(1)
 
 	while True:
-		frame_name = input('CAN frame to send : ')
-		while frame_name not in (frame.name for frame in framesList):
+		# C do-while like
+		while True:
+			try:
+				frame_name = input('CAN frame to send : ')
+			except KeyboardInterrupt:
+				print()		# Clean LineFeed
+				exit(0)
+			if frame_name in (frame.name for frame in framesList):
+				break
 			print('Available frames :\n\t{}'.format('\n\t'.join((frame.name for frame in framesList))))
-			frame_name = input('CAN frame to send : ')
 
 		frame = retrieve_by_name(framesList, frame_name)
 		dest_device = retrieve_by_name(devicesList, frame.destination)
