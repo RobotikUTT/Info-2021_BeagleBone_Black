@@ -4,22 +4,32 @@ Le wiki donne des informations plus complètes sur la configuration des outils
 
 ## Répertoires
 
-Le Git est constitué des répertoires suivants
-### Cerveau
-Contient sans surprise le cerveau du robot, on y retrouve le fichier *starter.py* qui permet de démarrer le cerveau. Il est aussi constitué des sous-répertoires suivants
-#### node_manager
+Le Git est constitué des répertoires suivants:
+___
+### Cerveau/
+Contient sans surprise le cerveau du robot, on y retrouve le fichier *starter.py* qui permet de démarrer le cerveau. Il est aussi constitué des sous-répertoires suivants:
+
+##### Cerveau/**node_manager**/
 Contient des classes de bases pour la gestion des noeuds et leur communication via des events
-#### nodes
+
+##### Cerveau/**nodes**/
 Contient les différents noeuds qui composent le cerveau
-#### events
+
+##### Cerveau/**events**/
 Contient les différents events qui permettent aux noeuds de communiquer
-#### interfaces
+
+##### Cerveau/**interfaces**/
 Contient les différentes interfaces externes du cerveau (can, GPIO)
-### doc
+
+___
+### doc/
 Contient la documentation (pardon ? comment ça c'est vide ?)
-### script
+
+___
+### script/
 Contient des scripts et des fichiers de config pour le Debian de la BBB
 
+___
 
 ## Programmation
 Le code est conçu pour fonctionner sous Python 3.8
