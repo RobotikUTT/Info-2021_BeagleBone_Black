@@ -2,7 +2,7 @@ from Cerveau.interfaces.interface_description.python_parser import Frame
 from Cerveau.interfaces.can_interface.can_handler import CanHandler
 from Cerveau.node_manager.node_manager import NodeBase
 from Cerveau.node_manager.event_handler import observe_event
-from Cerveau.events import EventCanReceive, EventCanSend
+from Cerveau.events.can_events import EventCanReceive, EventCanSend
 
 from typing import Dict
 

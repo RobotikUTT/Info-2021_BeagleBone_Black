@@ -4,7 +4,7 @@ from threading import Thread
 import inspect
 import logging
 
-from event import EventBase, EventRequestBase, EventReplyBase
+from .event import EventBase, EventRequestBase, EventReplyBase
 
 
 class NodeManager:
@@ -32,8 +32,12 @@ class NodeManager:
 		nodes = self.nodes.setdefault(node_cls, [])
 		nodes.append(node)
 
-	def start_nodes(self):
+	def get_all_nodes(self):
 		for node in sum(self.nodes.values(), []):
+			yield node
+
+	def start_nodes(self):
+		for node in self.get_all_nodes():
 			node.start()
 
 	def register_observer(self, observer, ev_cls, states=None):
@@ -63,7 +67,7 @@ class NodeManager:
 				ev.__class__.__name__, ev.src.__class__.__name__))
 
 		for observer in obs:
-			observer._sent_event(ev, state)
+			observer._send_event(ev, state)
 
 
 class NodeBase:
@@ -76,10 +80,10 @@ class NodeBase:
 		self.stop_event_loop = False
 
 		# Register handlers for this instance
-		# and register itself as an observer to the AppManager
+		# and register itself as an observer to the NodeManager
 		for m_name, method in inspect.getmembers(self, inspect.ismethod):
 			if hasattr(method, 'callers'):
-				for ev_cls, states in m.callers.items():
+				for ev_cls, states in method.callers.items():
 					self.register_handler(ev_cls, method)
 					self.observe_event(ev_cls, states)
 
@@ -167,7 +171,7 @@ class NodeBase:
 
 		req.sync = True
 		req.reply_q = Queue()
-		self.send_event(, req)
+		self.send_event(req)
 		# Going to sleep for the reply because Queue().get() block until not empty.
 		return req.reply_q.get()
 
@@ -184,7 +188,7 @@ class NodeBase:
 		else:
 			self.send_event(rep)
 
-	# If event are to slow: implement a synchrone fast_request function that call the manager
+	# If events are to slow: implement a synchrone fast_request function that call the manager
 	# which call a synchrone fast_reply on node. Thus, the fasy_reply function is executed by
 	# the fast_request thread.
 	# That should be used carefuly to avoid conflict with the reply node threads

@@ -8,7 +8,7 @@ def observe_event(ev_cls, states=None):
 	Decorated method will become an event handler.
 	ev_cls is an event class (or a list of event class) whose instances of this
 	node want to receive.
-	states optional argument specifies one or a list of states permiting a smaler
+	states is an optional argument specifies one or a list of states permiting a smaler
 	granularity to filter events that shoud be handle to this handler.
 	Note that, in case an event changes the state, the state before the change
 	is used to check the interest.
