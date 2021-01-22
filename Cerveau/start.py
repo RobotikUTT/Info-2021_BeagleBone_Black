@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import signal
+from subprocess import Popen
 
 # #### Arguments parsing definition ####
 from argparse import ArgumentParser
@@ -55,8 +56,11 @@ if child_pid:
 	with open('.brain_status', 'a') as f:
 		f.write(';' + str(os.getegid()) + ';' + str(child_pid))
 
-	# TODO: `tail -f` like printer
-	os.system('tail -f test.log')
+	# TODO: `tail -f` like printer for log module
+	proc = Popen(['tail', '-f', 'test.log'])
+	with open('.brain_status', 'a') as f:
+		f.write(';' + str(proc.pid))
+	proc.wait()
 else:
 	# Child process (run in background and should not print anything)
 

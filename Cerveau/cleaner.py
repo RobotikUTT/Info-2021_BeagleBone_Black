@@ -4,6 +4,8 @@ import time
 import signal
 import subprocess
 
+from stop import stop
+
 do_not_kill = []
 
 
@@ -22,6 +24,10 @@ def kill_python_processes(signum):
 		pid = int(process[1])
 		cmd = b' '.join(process[10:])
 		if pid not in do_not_kill:
+			try:
+				os.kill(pid, 0)
+			except ProcessLookupError:
+				continue
 			ans = input(f'Send {signum.name} to process "{cmd.decode()}" (pid={pid}) ? (Y/n) ')
 			if ans.lower() in ('', 'y', 'yes', 'o', 'oui'):
 				os.kill(pid, signum)
@@ -62,4 +68,8 @@ def clean():
 
 
 if __name__ == '__main__':
-	clean()
+	exit_code = stop(verbose=False)
+	if exit_code == 0:
+		print('Stopped successfuly. Nothing to clean.')
+	else:
+		clean()
