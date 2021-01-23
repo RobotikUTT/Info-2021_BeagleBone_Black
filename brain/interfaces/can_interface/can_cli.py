@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from Cerveau.interface.interface_description.python_parser import devicesList, messagesList, framesList
+from brain.interfaces.interface_description.python_parser import devicesList, messagesList, framesList
 #      VVV -> python-can library
 import can
 can.rc['interface'] = 'socketcan_ctypes'

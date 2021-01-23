@@ -1,4 +1,4 @@
-from Cerveau.engine_base.event_base import EventBase
+from ..engine_base.event_base import EventBase
 
 
 class EventTimer(EventBase):

@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 from argparse import Namespace
 
-from Cerveau.engine_base.node_base import NodeManager
-from Cerveau.nodes.test_node import TestNode_1, TestNode_2
+from brain.engine_base.node_base import NodeManager
+from brain.nodes.test_node import TestNode_1, TestNode_2
 
 
 def start_nodes_engine(args: Namespace):
 	# Arguments handeling
 	if not args.nocan:
-		from Cerveau.nodes.can_node import CanNode
+		from ..nodes.can_node import CanNode
 
 	# NodeManager singleton
 	man = NodeManager.get_instance()

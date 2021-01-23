@@ -1,5 +1,5 @@
-from Cerveau.engine_base.node_base import NodeBase, subscribe_to_event
-from Cerveau.events.test_events import EventTimer
+from ..engine_base.node_base import NodeBase, subscribe_to_event
+from ..events.test_events import EventTimer
 
 from threading import Thread
 from time import sleep
