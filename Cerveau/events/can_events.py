@@ -1,5 +1,5 @@
 from Cerveau.interfaces.interface_description.python_parser import Frame
-from Cerveau.node_manager.event import EventBase
+from Cerveau.engine_base.event_base import EventBase
 
 from typing import Dict
 

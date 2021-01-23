@@ -1,5 +1,4 @@
-from Cerveau.node_manager.event_handler import observe_event
-from Cerveau.node_manager.node_manager import NodeBase
+from Cerveau.engine_base.node_base import NodeBase, subscribe_to_event
 from Cerveau.events.test_events import EventTimer
 
 from threading import Thread
@@ -24,7 +23,7 @@ class TestNode_1(NodeBase):
 		while True:
 			sleep(self.intervale)
 			ev = EventTimer(self.count)
-			self.send_event(ev)
+			self.publish_event(ev)
 			self.count += 1
 
 
@@ -33,7 +32,7 @@ class TestNode_2(NodeBase):
 	def __init__(self):
 		super().__init__()
 
-	@observe_event(EventTimer)
+	@subscribe_to_event(EventTimer)
 	def listen_for_timer(self, ev):
 		with open('test.log', 'a') as f:
 			f.write(f'Got timer event nb: {ev.count}\n')

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from argparse import Namespace
 
-from Cerveau.node_manager.node_manager import NodeManager
+from Cerveau.engine_base.node_base import NodeManager
 from Cerveau.nodes.test_node import TestNode_1, TestNode_2
 
 
