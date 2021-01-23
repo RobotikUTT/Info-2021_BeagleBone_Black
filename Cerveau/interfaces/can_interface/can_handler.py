@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from Cerveau.interface.interface_description.python_parser import Frame, devicesList, messagesList, framesList
+from Cerveau.interfaces.interface_description.python_parser import Frame, devicesList, messagesList, framesList
 
 from threading import Thread, Lock
 from typing import Dict
