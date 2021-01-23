@@ -1,7 +1,7 @@
-from Cerveau.interfaces.interface_description.python_parser import Frame
-from Cerveau.interfaces.can_interface.can_handler import CanHandler
-from Cerveau.engine_base.node_base import NodeBase, subscribe_to_event
-from Cerveau.events.can_events import EventCanReceive, EventCanSend
+from ..interfaces.interface_description.python_parser import Frame
+from ..interfaces.can_interface.can_handler import CanHandler
+from ..engine_base.node_base import NodeBase, subscribe_to_event
+from ..events.can_events import EventCanReceive, EventCanSend
 
 from typing import Dict
 

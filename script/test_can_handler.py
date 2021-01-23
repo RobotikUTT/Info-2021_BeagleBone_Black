@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
-from Cerveau.interfaces.can_interface.can_handler import CanHandler
-from Cerveau.interfaces.interface_description.python_parser import Frame, framesList
+from brain.interfaces.can_interface.can_handler import CanHandler
+from brain.interfaces.interface_description.python_parser import Frame, framesList
 
 
 def handle_frame(frame: Frame, fields: dict):
