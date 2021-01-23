@@ -4,7 +4,7 @@ import time
 import signal
 import subprocess
 
-from stop import stop
+from stop import stop, BRAIN_STATUS_PATH
 
 do_not_kill = []
 
@@ -61,7 +61,7 @@ def clean():
 
 	# 3) Overwrite the .brain_status file
 	print('[Cleaner] Overwriting .brain_status file..')
-	with open('.brain_status', 'w') as f:
+	with open(BRAIN_STATUS_PATH, 'w') as f:
 		f.write('0')
 
 	print('[Cleaner] Cleaning done.')

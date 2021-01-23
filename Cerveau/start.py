@@ -3,6 +3,9 @@ import os
 import signal
 from subprocess import Popen
 
+BRAIN_STATUS_PATH = os.path.join(os.path.dirname(__file__), '.brain_status')
+
+
 # #### Arguments parsing definition ####
 from argparse import ArgumentParser
 parser = ArgumentParser()
@@ -31,7 +34,7 @@ if args.clean or args.restart:
 
 # #### Brain status handeling ####
 try:
-	with open('.brain_status', 'r') as f:
+	with open(BRAIN_STATUS_PATH, 'r') as f:
 		status = f.read(1)
 		if status == '0':
 			# Brain is not started
@@ -49,9 +52,10 @@ try:
 except FileNotFoundError:
 	pass
 finally:
-	with open('.brain_status', 'w') as f:
+	with open(BRAIN_STATUS_PATH, 'w') as f:
 		f.write('1\n')
 # #### End of Brain status handeling ####
+
 
 # Fork the main thread into a child process in order to be able to close the parent while preserving the
 # child. Thus permiting to close the printer loop and exit the SSH session without stoping the brain.
@@ -60,12 +64,12 @@ if child_pid:
 	# Parent process (run in foreground and can be stopped with CTRL+C)
 
 	# Write both processes PID to the .brain_status file in order to be able to stop them later
-	with open('.brain_status', 'a') as f:
+	with open(BRAIN_STATUS_PATH, 'a') as f:
 		f.write(';' + str(os.getegid()) + ';' + str(child_pid))
 
 	# TODO: `tail -f` like printer for log module
 	proc = Popen(['tail', '-n', '0', '-f', 'test.log'])
-	with open('.brain_status', 'a') as f:
+	with open(BRAIN_STATUS_PATH, 'a') as f:
 		f.write(';' + str(proc.pid))
 	try:
 		proc.wait()

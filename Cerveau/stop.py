@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-import os
-import signal
 
 ##############################
 #         Exit codes         #
@@ -8,6 +6,11 @@ import signal
 # 1 = brain is not running   #
 # 2 = Error                  #
 ##############################
+
+import os
+import signal
+
+BRAIN_STATUS_PATH = os.path.join(os.path.dirname(__file__), '.brain_status')
 
 
 class CorruptedFileError(Exception):
@@ -17,7 +20,7 @@ class CorruptedFileError(Exception):
 def stop(verbose=False):
 	# #### Brain status handeling ####
 	try:
-		with open('.brain_status', 'r') as f:
+		with open(BRAIN_STATUS_PATH, 'r') as f:
 			# First read status file content
 			content = f.readlines()
 		if not content:
@@ -43,7 +46,7 @@ def stop(verbose=False):
 				except ProcessLookupError:
 					pass
 			# Finally, overwrite the status file to indicate that the brain is stopped
-			with open('.brain_status', 'w') as f:
+			with open(BRAIN_STATUS_PATH, 'w') as f:
 				f.write('0\n')
 			if verbose: print('Stopped.')
 			return 0
