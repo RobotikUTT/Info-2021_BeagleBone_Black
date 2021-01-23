@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
+from argparse import Namespace
+
 from Cerveau.node_manager.node_manager import NodeManager
-# from Cerveau.nodes.can_node import CanNode
 from Cerveau.nodes.test_node import TestNode_1, TestNode_2
 
 
-def start_nodes_engine():
+def start_nodes_engine(args: Namespace):
+	# Arguments handeling
+	if not args.nocan:
+		from Cerveau.nodes.can_node import CanNode
+
 	# NodeManager singleton
 	man = NodeManager.get_instance()
 
 	# Adding all nodes
-	# man.add_node(CanNode, kwargs={'dev': 'can0'})
+	if not args.nocan:
+		man.add_node(CanNode, kwargs={'dev': 'can0'})
 	man.add_node(TestNode_1, kwargs={'intervale': 1.5})
 	man.add_node(TestNode_2)
 

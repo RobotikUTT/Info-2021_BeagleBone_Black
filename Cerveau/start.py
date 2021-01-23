@@ -7,9 +7,13 @@ from subprocess import Popen
 from argparse import ArgumentParser
 parser = ArgumentParser()
 parser.add_argument('-C', '--clean', action='store_true',
-					help='Run cleaner.py (Warning: this will kill every user python3 process)')
+					help='Run cleaner.py (Warning: this might kill every user Python3 process)')
 parser.add_argument('-R', '--restart', action='store_true',
-					help='Run cleaner.py and then restart. (Warning: this will kill every user python3 process)')
+					help='Run cleaner.py and then restart. (Warning: this might kill every user Python3 process)')
+parser.add_argument('-S', '--simulation', action='store_true',
+					help='Start the brain in simulation mode. (Virtual Can, etc)')
+parser.add_argument('--nocan', action='store_true',
+					help='Start the brain without Can support (Usefull for local tests)')
 args = parser.parse_args()
 # #### End of Arguments parsing definition ####
 
@@ -17,9 +21,12 @@ args = parser.parse_args()
 # TODO: parse arguments (like "simulation" and "debug") and handle them
 if args.clean or args.restart:
 	from cleaner import clean
+	print('Cleaning..')
 	clean()
 	if not args.restart:		# If we are not restarting, just exit now. Else continue.
 		exit(0)
+	else:
+		print('Restarting..')
 
 
 # #### Brain status handeling ####
@@ -57,10 +64,13 @@ if child_pid:
 		f.write(';' + str(os.getegid()) + ';' + str(child_pid))
 
 	# TODO: `tail -f` like printer for log module
-	proc = Popen(['tail', '-f', 'test.log'])
+	proc = Popen(['tail', '-n', '0', '-f', 'test.log'])
 	with open('.brain_status', 'a') as f:
 		f.write(';' + str(proc.pid))
-	proc.wait()
+	try:
+		proc.wait()
+	except KeyboardInterrupt:
+		exit(0)
 else:
 	# Child process (run in background and should not print anything)
 
@@ -73,7 +83,7 @@ else:
 
 	# #### Node management ####
 	from _nodes_engine import start_nodes_engine
-	start_nodes_engine()
+	start_nodes_engine(args)
 	# #### End of Node management ####
 
 	print('End of things')
