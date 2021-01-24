@@ -1,5 +1,3 @@
-**Ceci est un test réalisé par des professionnels, veuillez ne pas le reproduire chez vous**
-
 # Info-2021_BeagleBone_Black
 
 Le wiki donne des informations plus complètes sur la configuration des outils
