@@ -4,7 +4,7 @@ import time
 import signal
 import subprocess
 
-from .stop import stop, BRAIN_STATUS_PATH
+from brain.stop import stop, BRAIN_STATUS_PATH
 
 do_not_kill = []
 
