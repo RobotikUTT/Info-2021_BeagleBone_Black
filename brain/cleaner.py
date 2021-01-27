@@ -13,7 +13,7 @@ def get_python_processes():
 	# Uses `ps -ux` to get a list of running processes, then filter for 'python3' string in the launch command
 	sub_ps = subprocess.Popen(['ps', '-ux'], stdout=subprocess.PIPE)
 	output, error = sub_ps.communicate()
-	return [line.split() for line in output.splitlines() if b'python3' in line]
+	return [line.split() for line in output.splitlines() if b'python' in line]
 
 
 def kill_python_processes(signum):
