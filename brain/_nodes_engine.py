@@ -8,7 +8,7 @@ from brain.nodes.test_node import TestNode_1, TestNode_2
 def start_nodes_engine(args: Namespace):
 	# Arguments handeling
 	if not args.nocan:
-		from ..nodes.can_node import CanNode
+		from brain.nodes.can_node import CanNode
 
 	# NodeManager singleton
 	man = NodeManager.get_instance()
