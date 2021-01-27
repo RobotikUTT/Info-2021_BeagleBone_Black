@@ -24,7 +24,8 @@ def start():
 
 	# TODO: parse arguments (like "simulation" and "debug") and handle them
 	if args.clean or args.restart:
-		from cleaner import clean
+		from brain.stop import stop
+		from brain.cleaner import clean
 		print('Cleaning..')
 		clean()
 		if not args.restart:		# If we are not restarting, just exit now. Else continue.
@@ -87,7 +88,7 @@ def start():
 		# #### End of SIGINT ####
 
 		# #### Node management ####
-		from _nodes_engine import start_nodes_engine
+		from brain._nodes_engine import start_nodes_engine
 		start_nodes_engine(args)
 		# #### End of Node management ####
 
