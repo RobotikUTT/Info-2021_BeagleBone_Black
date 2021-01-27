@@ -31,7 +31,14 @@ Contient des scripts et des fichiers de config pour le Debian de la BBB
 
 ___
 
+## Documentation code
+La documentation du code est disponible dans `doc/`.\
+Elle peut aussi être générée à l'aide de pdoc3 (`pip install pdoc3`) avec:
+```sh
+pdoc --html -o doc/ brain/ --force
+```
+
 ## Programmation
-Le code est conçu pour fonctionner sous Python 3.8
-Le framework ROS était utilisé les années précédentes, ce qui changeait l'implémentation du fonctionnement du bus can et du robot.
+Le code est conçu pour fonctionner sous Python 3.8\
+Le framework ROS était utilisé les années précédentes, ce qui changeait l'implémentation du fonctionnement du bus can et du robot.\
 L'objectif est de passer à du tout python, plus simple à prendre en main pour les nouveaux arrivants sur le projet (et accessoirement aussi pour ceux qui ne font pas d'études d'info), et donc plus facile de repartir du code existant d'une année sur l'autre.
