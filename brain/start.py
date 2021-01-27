@@ -27,7 +27,11 @@ def start():
 		from brain.stop import stop
 		from brain.cleaner import clean
 		print('Cleaning..')
-		clean()
+		exit_code = stop(verbose=False)
+		if exit_code == 0:
+			print('Brain stopped.')
+		else:
+			clean()
 		if not args.restart:		# If we are not restarting, just exit now. Else continue.
 			exit(0)
 		else:
@@ -70,6 +74,8 @@ def start():
 			f.write(';' + str(os.getegid()) + ';' + str(child_pid))
 
 		# TODO: `tail -f` like printer for log module
+		import time		# Simple fix for test purpose
+		time.sleep(2)
 		proc = Popen(['tail', '-n', '0', '-f', 'test.log'])
 		with open(BRAIN_STATUS_PATH, 'a') as f:
 			f.write(';' + str(proc.pid))
