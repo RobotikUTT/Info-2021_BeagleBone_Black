@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
 import signal
-from subprocess import Popen
+import logging
 
 BRAIN_STATUS_PATH = os.path.join(os.path.dirname(__file__), '.brain_status')
 
@@ -16,6 +16,10 @@ def start():
 						help='Run cleaner.py and then restart. (Warning: this might kill every user Python3 process)')
 	parser.add_argument('-I', '--interactive', action='store_true',
 						help='Open a Ipython interpreter while the brain is running (require Ipython)')
+	parser.add_argument('-D', '--debug', action='store_true',
+						help='Enable DEBUG level for logging and log viewer.')
+	parser.add_argument('-N', '--noprint', action='store_true',
+						help='Log viewer disable. Background process only.')
 	parser.add_argument('-S', '--simulation', action='store_true',
 						help='Start the brain in simulation mode. (Virtual Can, etc)')
 	parser.add_argument('--nocan', action='store_true',
@@ -80,17 +84,14 @@ def start():
 				os.waitpid(child_pid, 0)
 			except KeyboardInterrupt:
 				print()
-		else:
-			# TODO: `tail -f` like printer for log module
-			import time             # Simple fix for test purpose
-			time.sleep(2)
-			proc = Popen(['tail', '-n', '0', '-f', 'test.log'])
-			with open(BRAIN_STATUS_PATH, 'a') as f:
-				f.write(';' + str(proc.pid))
-				try:
-					proc.wait()
-				except KeyboardInterrupt:
-					exit(0)
+		elif not args.noprint:
+			import time
+			from brain.logger import log_viewer
+			time.sleep(0.1)
+			try:
+				log_viewer(logging.DEBUG if args.debug else logging.INFO)
+			except KeyboardInterrupt:
+				print()
 	else:
 		# Child process (run in background and should not print anything)
 
@@ -100,6 +101,10 @@ def start():
 			pass
 		signal.signal(signal.SIGINT, signal_pass)
 		# #### End of SIGINT ####
+
+		# Configure the logger
+		from brain.logger import configure_logger
+		configure_logger(logging.DEBUG if args.debug else logging.INFO)
 
 		# #### Node management ####
 		from brain._nodes_engine import start_nodes_engine
