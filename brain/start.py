@@ -14,6 +14,8 @@ def start():
 						help='Run cleaner.py (Warning: this might kill every user Python3 process)')
 	parser.add_argument('-R', '--restart', action='store_true',
 						help='Run cleaner.py and then restart. (Warning: this might kill every user Python3 process)')
+	parser.add_argument('-I', '--interactive', action='store_true',
+						help='Open a Ipython interpreter while the brain is running (require Ipython)')
 	parser.add_argument('-S', '--simulation', action='store_true',
 						help='Start the brain in simulation mode. (Virtual Can, etc)')
 	parser.add_argument('--nocan', action='store_true',
@@ -73,16 +75,22 @@ def start():
 		with open(BRAIN_STATUS_PATH, 'a') as f:
 			f.write(';' + str(os.getegid()) + ';' + str(child_pid))
 
-		# TODO: `tail -f` like printer for log module
-		import time		# Simple fix for test purpose
-		time.sleep(2)
-		proc = Popen(['tail', '-n', '0', '-f', 'test.log'])
-		with open(BRAIN_STATUS_PATH, 'a') as f:
-			f.write(';' + str(proc.pid))
-		try:
-			proc.wait()
-		except KeyboardInterrupt:
-			exit(0)
+		if args.interactive:
+			try:
+				os.waitpid(child_pid, 0)
+			except KeyboardInterrupt:
+				print()
+		else:
+			# TODO: `tail -f` like printer for log module
+			import time             # Simple fix for test purpose
+			time.sleep(2)
+			proc = Popen(['tail', '-n', '0', '-f', 'test.log'])
+			with open(BRAIN_STATUS_PATH, 'a') as f:
+				f.write(';' + str(proc.pid))
+				try:
+					proc.wait()
+				except KeyboardInterrupt:
+					exit(0)
 	else:
 		# Child process (run in background and should not print anything)
 
