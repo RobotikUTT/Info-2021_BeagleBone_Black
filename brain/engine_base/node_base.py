@@ -185,11 +185,21 @@ class NodeBase:
 		Returns the received reply.
 		"""
 
-		req.sync = True
 		req.reply_q = Queue()
 		self.publish_event(req)
-		# Going to sleep for the reply because Queue().get() block until not empty.
-		return req.reply_q.get()
+		if req.sync:
+			# Going to sleep for the reply because Queue().get() block until not empty.
+			return req.reply_q.get()
+
+	def check_for_reply(self, req: EventRequestBase):
+		if isinstance(req.reply_q, Queue):
+			return not req.reply_q.empty()
+		return False
+
+	def get_reply(self, req: EventRequestBase):
+		if self.check_for_reply(req):
+			return req.reply_q.get()
+		return None
 
 	def reply_to_request(self, req: EventRequestBase, rep: EventReplyBase):
 		"""

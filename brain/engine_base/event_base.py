@@ -14,10 +14,10 @@ class EventRequestBase(EventBase):
 	The base class for synchronous/asynchronus request.
 	"""
 
-	def __init__(self, src=None, dst=None):
+	def __init__(self, src=None, dst=None, sync=True):
 		super().__init__(src)
 		self.dst = dst
-		self.sync = False
+		self.sync = sync
 		self.reply_q = None
 
 

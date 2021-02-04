@@ -9,6 +9,8 @@ def start_nodes_engine(args: Namespace):
 	# Arguments handeling
 	if not args.nocan:
 		from brain.nodes.can_node import CanNode
+	if args.interactive:
+		from brain.nodes.ipython_node import IpythonNode
 
 	# NodeManager singleton
 	man = NodeManager.get_instance()
@@ -16,6 +18,8 @@ def start_nodes_engine(args: Namespace):
 	# Adding all nodes
 	if not args.nocan:
 		man.add_node(CanNode, kwargs={'dev': 'can0'})
+	if args.interactive:
+		man.add_node(IpythonNode, kwargs={'locals_ns': locals()})
 	man.add_node(TestNode_1, kwargs={'intervale': 1.5})
 	man.add_node(TestNode_2)
 
