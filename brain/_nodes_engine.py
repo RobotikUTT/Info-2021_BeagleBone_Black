@@ -2,6 +2,7 @@
 from argparse import Namespace
 
 from brain.engine_base.node_base import NodeManager
+from brain.nodes.stm32_node import Stm32Node
 from brain.nodes.test_node import TestNode_1, TestNode_2
 
 
@@ -17,9 +18,10 @@ def start_nodes_engine(args: Namespace):
 
 	# Adding all nodes
 	if not args.nocan:
-		man.add_node(CanNode, kwargs={'dev': 'can0'})
+		man.add_node(CanNode, kwargs={'dev': 'can1'})
 	if args.interactive:
 		man.add_node(IpythonNode, kwargs={'locals_ns': locals()})
+	man.add_node(Stm32Node)
 	man.add_node(TestNode_1, kwargs={'intervale': 1.5})
 	man.add_node(TestNode_2)
 
