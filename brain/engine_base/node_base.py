@@ -158,7 +158,7 @@ class NodeBase:
 				# dynamically registered handlers does not have
 				# h.callers element for the event.
 				return True
-			states = h.callers[ev_cls].dispatchers
+			states = h.callers[ev_cls]
 			if not states:
 				# empty states means all states
 				return True
