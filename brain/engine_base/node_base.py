@@ -95,7 +95,7 @@ class NodeBase:
 
 	def _event_loop(self):
 		while not self.stop_event_loop or not self.events_queue.empty():
-			ev, state = self.events_queue.get()
+			ev, state = self.events_queue.get()		# .get() blocks until Queue is not empty
 			handlers = self.get_handlers_for_event(ev, state)
 			for handler in handlers:
 				handler(ev)
