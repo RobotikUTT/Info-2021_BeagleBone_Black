@@ -1,11 +1,13 @@
 from queue import Queue
 from typing import Callable
-from threading import Thread
+from threading import Thread, Event
 import inspect
 import logging
 from collections.abc import Iterable
 
 from .event_base import EventBase, EventRequestBase, EventReplyBase
+
+node_man_logger = logging.getLogger('node_man')
 
 
 class NodeManager:
@@ -26,12 +28,14 @@ class NodeManager:
 
 		self.nodes = {}
 		self.subscriptions = {}
+		self.shutdown = Event()
 
 	def add_node(self, node_cls, args=(), kwargs={}):
 		assert issubclass(node_cls, NodeBase)
 		node = node_cls(*args, **kwargs)
 		nodes = self.nodes.setdefault(node_cls, [])
 		nodes.append(node)
+		return node
 
 	def get_all_nodes(self):
 		for node in sum(self.nodes.values(), []):
@@ -54,7 +58,7 @@ class NodeManager:
 		if subscriber in ev_cls_subscribers:
 			ev_cls_subscribers.pop(subscriber)
 		else:
-			logging.warning('Unsuscribe to event failed: {} is not a subscriber of {}.'.format(
+			node_man_logger.warning('Unsuscribe to event failed: {} is not a subscriber of {}.'.format(
 				subscriber.__class__.__name__, ev_cls.__name__))
 
 	def get_subscribers_for_event(self, ev_cls, state=None):
@@ -68,8 +72,9 @@ class NodeManager:
 	def send_event_to_subscribers(self, ev: EventBase, state=None):
 		subscribers = self.get_subscribers_for_event(ev.__class__, state)
 		if not subscribers:
-			logging.warning('Event lost: {} from {}: No subscribers for this event.'.format(
-				ev.__class__.__name__, ev.src.__class__.__name__))
+			pass
+			# node_man_logger.warning('Event lost: {} from {}: No subscribers for this event.'.format(
+			# 	ev.__class__.__name__, ev.src.__class__.__name__))
 
 		for subscriber in subscribers:
 			subscriber.send_event(ev, state)
@@ -128,10 +133,10 @@ class NodeBase:
 		assert issubclass(ev_cls, EventBase)
 		handlers = self.event_handlers.get(handler)
 		if handlers is None:
-			logging.warning('Unable to unregister event handler "{}" from "{}": No handlers for this event.'.format(
+			node_man_logger.warning('Unable to unregister event handler "{}" from "{}": No handlers for this event.'.format(
 				handler.__name__, self.__class__.__name__))
 		elif handler not in handlers:
-			logging.warning('Unable to unregister event handler "{}" from "{}": Not in handlers list for this event.'.format(
+			node_man_logger.warning('Unable to unregister event handler "{}" from "{}": Not in handlers list for this event.'.format(
 				handler.__name__, self.__class__.__name__))
 		else:
 			handlers.remove(handler)

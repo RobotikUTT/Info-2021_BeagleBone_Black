@@ -85,7 +85,7 @@ class CanHandler:
 			return
 
 		if dst_device.name == 'all' or dst_device.name == 'bbb':
-			can_logger.info(f'{msg_num}: Received can frame "{frame_type.name}" for device: {dst_device.name}')
+			can_logger.debug(f'{msg_num}: Received can frame "{frame_type.name}" for device: {dst_device.name}')
 		else:
 			can_logger.debug(f'{msg_num}: Received can frame "{frame_type.name}" for device: {dst_device.name}')
 		can_logger.debug(f'{msg_num}: ' + self.frame_to_str(message))
@@ -134,6 +134,9 @@ class CanHandler:
 			try:
 				fmt = '>' + ''.join(('B' if field._type == 'byte' else 'h') for field in frame_type.fields)
 				data = [frame_type.cmd_id] + list(struct.pack(fmt, *(data_fields[field.name] for field in frame_type.fields)))
+				if frame_type.cmd_id == 46:
+					can_logger.info(fmt)
+					can_logger.info(data)
 			except (KeyError, struct.error):
 				can_logger.error(f'{msg_num}: Message NOT sent: {frame_type.name}: Malformed data_fields')
 				return
@@ -169,6 +172,8 @@ class CanHandler:
 				self.bus.send(frame)
 				# can_logger.debug(f'{msg_num}: Message sent on {self.bus.channel_info}:')
 				# can_logger.debug(f'{msg_num}: ' + self.frame_to_str(message))
+				if frame_type.cmd_id == 46:
+					can_logger.info(f'{msg_num}: ' + self.frame_to_str(frame))
 			except can.CanError as e:
 				can_logger.error(f'{msg_num}: Message NOT sent: {frame_type.name}: CanError: {e}')
 				return
