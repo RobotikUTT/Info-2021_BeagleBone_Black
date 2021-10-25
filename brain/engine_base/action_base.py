@@ -133,7 +133,7 @@ class ActionThread(ActionBase):
 		action.start(self.parent_node, self)
 		self.actions_stack.pop()
 		if self.actions_stack:
-			self.current_action[-1]
+			self.current_action = self.actions_stack[-1]
 		else:
 			self.current_action = None
 

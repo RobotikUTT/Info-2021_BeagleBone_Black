@@ -2,6 +2,7 @@ import time
 
 from ..engine_base.action_base import ActionBase
 from ..engine_base.node_base import NodeManager
+from .action_goto import Toto
 
 
 class ActionSleep(ActionBase):
@@ -24,3 +25,9 @@ class ActionShutdown(ActionBase):
 
 	def run(self):
 		NodeManager.get_instance().shutdown.set()
+
+
+class ActionDisableSonar(ActionBase):
+
+	def run(self):
+		Toto.get_instance().DISABLE_SONAR = True

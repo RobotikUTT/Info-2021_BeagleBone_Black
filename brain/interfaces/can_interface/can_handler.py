@@ -134,9 +134,6 @@ class CanHandler:
 			try:
 				fmt = '>' + ''.join(('B' if field._type == 'byte' else 'h') for field in frame_type.fields)
 				data = [frame_type.cmd_id] + list(struct.pack(fmt, *(data_fields[field.name] for field in frame_type.fields)))
-				if frame_type.cmd_id == 46:
-					can_logger.info(fmt)
-					can_logger.info(data)
 			except (KeyError, struct.error):
 				can_logger.error(f'{msg_num}: Message NOT sent: {frame_type.name}: Malformed data_fields')
 				return

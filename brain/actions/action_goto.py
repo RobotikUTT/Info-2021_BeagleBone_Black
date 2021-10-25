@@ -16,7 +16,29 @@ goto_logger = logging.getLogger('goto')
 SONAR_MIN_STOP_DELAY = 1
 
 
+class Toto():
+
+	# singleton
+	_instance = None
+	DISABLE_SONAR = False
+
+	@classmethod
+	def get_instance(cls_):
+		if Toto._instance is None:
+			Toto()
+		return Toto._instance
+
+	def __init__(self):
+		if Toto._instance is None:
+			Toto._instance = self
+		else:
+			return
+
+
 def bypass_sonar():
+	if Toto.get_instance().DISABLE_SONAR:
+		return True
+
 	LOWER_BORDER_X = 0
 	UPPER_BORDER_X = 2000
 	LOWER_BORDER_Y = 0
