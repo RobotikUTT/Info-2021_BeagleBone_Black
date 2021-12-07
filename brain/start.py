@@ -49,6 +49,7 @@ def start():
 		with open(BRAIN_STATUS_PATH, 'r') as f:
 			status = f.read(1)
 			if status == '0':
+				# TODO: explain the utility of this part...
 				# Brain is not started
 				# Continue normally
 				pass
@@ -81,6 +82,7 @@ def start():
 
 		if args.interactive:
 			try:
+				# Wait until the child process is finished in order to give control over the terminal
 				os.waitpid(child_pid, 0)
 			except KeyboardInterrupt:
 				print()
