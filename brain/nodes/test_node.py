@@ -1,5 +1,6 @@
 from ..engine_base.node_base import NodeBase, subscribe_to_event
 from ..events.test_events import EventTimer
+# TODO: Relative imports for intra-package imports are highly discouraged.
 
 from threading import Thread
 from time import sleep

@@ -29,7 +29,7 @@ class CanHandler:
 			self.start_input_thread()
 
 	def start_input_thread(self):
-		# Start thread
+		"""Start thread"""
 		self.can_input_thread.start()
 
 	def wait_for_can_message(self):
@@ -53,9 +53,8 @@ class CanHandler:
 			logging.error(e)
 
 	def on_can_message(self, message: can.Message):
-		'''
-			Parse messages from can and call Callback
-		'''
+		"""Parse messages from can and call Callback"""
+			
 		if len(message.data) == 0:
 			logging.debug('Received empty frame, ignoring.')
 			return

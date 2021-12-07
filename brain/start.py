@@ -7,15 +7,18 @@ BRAIN_STATUS_PATH = os.path.join(os.path.dirname(__file__), '.brain_status')
 
 
 def start():
-	# #### Arguments parsing definition ####
+	"""Arguments parsing definition"""
 	from argparse import ArgumentParser
 	parser = ArgumentParser()
 	parser.add_argument('-C', '--clean', action='store_true',
 						help='Run cleaner.py (Warning: this might kill every user Python3 process)')
 	parser.add_argument('-R', '--restart', action='store_true',
 						help='Run cleaner.py and then restart. (Warning: this might kill every user Python3 process)')
+	
+	# TODO: delete this function tu use python -i start.py?
 	parser.add_argument('-I', '--interactive', action='store_true',
 						help='Open a Ipython interpreter while the brain is running (require Ipython)')
+	
 	parser.add_argument('-D', '--debug', action='store_true',
 						help='Enable DEBUG level for logging and log viewer.')
 	parser.add_argument('-N', '--noprint', action='store_true',
@@ -97,7 +100,7 @@ def start():
 
 		# #### Catching Keyboard Intterupt signal (SIGINT) ####
 		def signal_pass(signum, frame):
-			# Ignore signal.
+			"""Ignore signal"""
 			pass
 		signal.signal(signal.SIGINT, signal_pass)
 		# #### End of SIGINT ####
@@ -111,7 +114,7 @@ def start():
 		start_nodes_engine(args)
 		# #### End of Node management ####
 
-		print('End of things')
+		print('Clean exit done')
 		# If execution goes here, then all nodes have stopped.
 		# This is a clean exit, so put that in log.
 		# log.info('Clean exit.')

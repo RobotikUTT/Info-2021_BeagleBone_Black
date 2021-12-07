@@ -10,7 +10,7 @@
 import os
 import signal
 
-BRAIN_STATUS_PATH = os.path.join(os.path.dirname(__file__), '.brain_status')
+BRAIN_STATUS_PATH = os.path.join(os.path.dirname(__file__), '.brain_status') # hacky way: https://stackoverflow.com/questions/7505988/importing-from-a-relative-path-in-python
 
 
 class CorruptedFileError(Exception):

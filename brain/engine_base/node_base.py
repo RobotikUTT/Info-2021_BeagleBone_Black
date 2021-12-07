@@ -6,7 +6,7 @@ import logging
 from collections.abc import Iterable
 
 from .event_base import EventBase, EventRequestBase, EventReplyBase
-
+# TODO: Relative imports for intra-package imports are highly discouraged.
 
 class NodeManager:
 	# singleton

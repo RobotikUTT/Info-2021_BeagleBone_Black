@@ -1,5 +1,6 @@
 from ..interfaces.interface_description.python_parser import Frame
 from ..engine_base.event_base import EventBase
+# Relative imports for intra-package imports are highly discouraged TODO
 
 from typing import Dict
 
