@@ -6,15 +6,15 @@ import logging
 from pathlib import Path
 from datetime import datetime
 
-# Path for the .brain_status file (created in start.py)
+# Path for the .brain_status file (created in "start.py")
 BRAIN_STATUS_PATH = Path(__file__).parent.joinpath('.brain_status')
 
-# Define the path for the logs directory, and create it if it doesn't exist
+# Define the path for the logs directory, and create it if it doesn't exist in the "Info-2021_BeagleBone_Black" folder
 LOG_DIR = Path(__file__).parent.parent.joinpath('logs')
 if not LOG_DIR.is_dir():
 	LOG_DIR.mkdir()
 
-
+# Define the path for the current logs file, in the "logs" folder
 CURRENT_LOG_PATH = LOG_DIR.joinpath('.current_log')
 
 
