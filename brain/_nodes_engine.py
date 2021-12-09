@@ -15,11 +15,13 @@ def start_nodes_engine(args: Namespace):
 	# NodeManager singleton
 	man = NodeManager.get_instance()
 
-	# Adding all nodes
+	# Adding nodes depending of can and interractive mode
 	if not args.nocan:
 		man.add_node(CanNode, kwargs={'dev': 'can0'})
 	if args.interactive:
 		man.add_node(IpythonNode, kwargs={'locals_ns': locals()})
+
+	# Add built nodes
 	man.add_node(TestNode_1, kwargs={'intervale': 1.5})
 	man.add_node(TestNode_2)
 

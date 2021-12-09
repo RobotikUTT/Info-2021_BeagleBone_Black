@@ -98,7 +98,7 @@ def start():
 	else:
 		# Child process (run in background and should not print anything)
 
-		# #### Catching Keyboard Intterupt signal (SIGINT) ####
+		# #### Catching Keyboard Interrupt signal (SIGINT) ####
 		def signal_pass(signum, frame):
 			"""Ignore signal"""
 			pass
