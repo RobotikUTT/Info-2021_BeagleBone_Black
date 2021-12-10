@@ -19,6 +19,9 @@ CURRENT_LOG_PATH = LOG_DIR.joinpath('.current_log')
 
 
 def configure_logger(level: int = logging.INFO):
+
+	# Define a path and a name for the logfile, then create and open it.
+	# The logfile name will have this pattern : YEAR-MONTH-DAY--HOUR-MINUTES-SECONDS.log     ex : 2021-12-09--18-38-21 for the 12th of December 2021, at 18:38:21
 	logfile_path = LOG_DIR.joinpath(datetime.now().strftime('%Y-%m-%d--%H-%M-%S') + '.log')
 	logfile_path.touch()
 	with open(CURRENT_LOG_PATH, 'w') as f:

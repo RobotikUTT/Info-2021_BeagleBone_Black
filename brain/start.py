@@ -119,5 +119,7 @@ def start():
 		# log.info('Clean exit.')
 
 
+
+# Entry point of the program
 if __name__ == '__main__':
 	start()
